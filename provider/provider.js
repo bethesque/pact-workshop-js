@@ -17,7 +17,7 @@ server.get('/customer/:id', (req, res) => {
     {
       'firstName': 'Mary',
       'lastName': 'Jones',
-      'dateJoined': new Date('2017-01-16')
+      'dateJoined': '2017-01-16'
     }
   )
 })
