@@ -20,12 +20,12 @@ describe('Consumer', () => {
         .reply(200, {
           firstName: 'Mary',
           surname: 'Jones',
-          dateJoined: moment().subtract(1, 'day')
+          dateJoined: moment().subtract(1, 'month').format('DD-MM-YYYY')
         })
 
       const response = fetchProviderData(1)
 
-      return expect(response).to.eventually.have.property('fullName', 'Mary Jones')
+      return expect(response).to.eventually.deep.equal({fullName: 'Mary Jones', joined: 'a month ago'})
     })
   })
 })
