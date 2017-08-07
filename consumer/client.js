@@ -1,3 +1,4 @@
+const moment = require('moment')
 const request = require('superagent')
 const API_HOST = process.env.API_HOST || 'http://localhost'
 const API_PORT = process.env.API_PORT || 9123

@@ -1,3 +1,4 @@
+const moment = require('moment')
 const chai = require('chai')
 const nock = require('nock')
 const chaiAsPromised = require('chai-as-promised')
@@ -10,23 +11,21 @@ chai.use(chaiAsPromised)
 const API_HOST = `http://localhost:${API_PORT}`
 
 describe('Consumer', () => {
-  describe('when a call to the Provider is made', () => {
-    const date = '2013-08-16T15:31:20+10:00'
+  describe('a request to retrieve a customer', () => {
     const { fetchProviderData } = require('../client')
 
     it('can process the JSON payload from the provider', () => {
       nock(API_HOST)
-        .get('/provider')
-        .query({ validDate: /.*/ })
+        .get('/customer/1')
         .reply(200, {
-          test: 'NO',
-          date: date,
-          count: 1000
+          firstName: 'Mary',
+          surname: 'Jones',
+          dateJoined: moment().subtract(1, 'day')
         })
 
       const response = fetchProviderData()
 
-      return expect(response).to.eventually.have.property('count', 0.1)
+      return expect(response).to.eventually.have.property('fullName', 'Mary Jones')
     })
   })
 })
