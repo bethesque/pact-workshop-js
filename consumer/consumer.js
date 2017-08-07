@@ -5,8 +5,7 @@ const API_ENDPOINT = `${API_HOST}:${API_PORT}`
 
 // Fetch provider data
 request
-  .get(`${API_ENDPOINT}/provider`)
-  .query({validDate: new Date().toISOString()})
+  .get(`${API_ENDPOINT}/customer/1`)
   .then((res) => {
     console.log(res.body)
   })
