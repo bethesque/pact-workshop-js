@@ -12,7 +12,7 @@ const fetchProviderData = (customerId) => {
       if (res.body.dateJoined.match(/\d{4}-\d{2}-\d{2}/)) {
         return {
           fullName: `${res.body.firstName} ${res.body.lastName}`,
-          joined: moment(res.body.dateJoined).fromNow()
+          joined: moment(res.body.dateJoined, 'YYYY-MM-DD').fromNow()
         }
       } else {
         throw new Error('Invalid date format in response')
