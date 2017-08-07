@@ -23,7 +23,7 @@ const provider = pact({
   logLevel: LOG_LEVEL,
   spec: 2
 })
-const date = moment().subtract(1, 'day')
+const date = moment().subtract(1, 'month')
 const customerId = 1
 
 // Alias flexible matchers for simplicity
