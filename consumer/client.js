@@ -11,7 +11,7 @@ const fetchProviderData = () => {
     .then((res) => {
       return {
         fullName: `${res.body.firstName} ${res.body.surname}`,
-        joined: moment(res.body.dateJoined).fromNow()
+        joined: moment(res.body.dateJoined, 'DD-MM-YYYY').fromNow()
       }
     })
 }
