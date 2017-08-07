@@ -2,6 +2,7 @@ const chai = require('chai')
 const path = require('path')
 const chaiAsPromised = require('chai-as-promised')
 const pact = require('pact')
+const moment = require('moment')
 const expect = chai.expect
 const API_PORT = process.env.API_PORT || 9123
 const {
@@ -22,26 +23,23 @@ const provider = pact({
   logLevel: LOG_LEVEL,
   spec: 2
 })
-const date = '2013-08-16T15:31:20+10:00'
-const submissionDate = new Date().toISOString()
+const date = moment().subtract(1, 'day')
+const customerId = 1
 
 // Alias flexible matchers for simplicity
 const { somethingLike: like, term } = pact.Matchers
 
 describe('Pact with Our Provider', () => {
-  describe('given data count > 0', () => {
-    describe('when a call to the Provider is made', () => {
+  describe('when a customer with ID 1 exists', () => {
+    describe('when a request for a customer is made', () => {
       before(() => {
         return provider.setup()
           .then(() => {
             provider.addInteraction({
-              uponReceiving: 'a request for JSON data',
+              uponReceiving: 'a request for a customer with ID 1',
               withRequest: {
                 method: 'GET',
-                path: '/provider',
-                query: {
-                  validDate: submissionDate
-                }
+                path: '/customer/1'
               },
               willRespondWith: {
                 status: 200,
@@ -49,9 +47,9 @@ describe('Pact with Our Provider', () => {
                   'Content-Type': 'application/json; charset=utf-8'
                 },
                 body: {
-                  test: 'NO',
-                  validDate: term({ generate: date, matcher: '\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{2}:\\d{2}' }),
-                  count: like(1000)
+                  firstName: 'Mary',
+                  lastName: 'Jones',
+                  dateJoined: term({generate: date, matcher: '\\d{4}-\\d{2}-\\d{2}'})
                 }
               }
             })
@@ -59,9 +57,9 @@ describe('Pact with Our Provider', () => {
       })
 
       it('can process the JSON payload from the provider', () => {
-        const response = fetchProviderData(submissionDate)
+        const response = fetchProviderData(customerId)
 
-        return expect(response).to.eventually.have.property('count', 0.1)
+        return expect(response).to.eventually.have.property('fullName', 'Mary Jones')
       })
 
       it('should validate the interactions and create a contract', () => {
