@@ -1,17 +1,17 @@
+const moment = require('moment')
 const request = require('superagent')
 const API_HOST = process.env.API_HOST || 'http://localhost'
 const API_PORT = process.env.API_PORT || 9123
 const API_ENDPOINT = `${API_HOST}:${API_PORT}`
 
 // Fetch provider data
-const fetchProviderData = (submissionDate) => {
+const fetchProviderData = (customerId) => {
   return request
-    .get(`${API_ENDPOINT}/provider`)
-    .query({ validDate: submissionDate })
+    .get(`${API_ENDPOINT}/customer/${customerId}`)
     .then((res) => {
       return {
-        count: 100 / res.body.count,
-        date: res.body.date
+        fullName: `${res.body.firstName} ${res.body.surname}`,
+        joined: moment(res.body.dateJoined).fromNow()
       }
     })
 }
