@@ -23,7 +23,7 @@ describe('Consumer', () => {
           dateJoined: moment().subtract(1, 'day')
         })
 
-      const response = fetchProviderData(new Date().toISOString())
+      const response = fetchProviderData(1)
 
       return expect(response).to.eventually.have.property('fullName', 'Mary Jones')
     })

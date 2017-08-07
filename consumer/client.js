@@ -5,9 +5,9 @@ const API_PORT = process.env.API_PORT || 9123
 const API_ENDPOINT = `${API_HOST}:${API_PORT}`
 
 // Fetch provider data
-const fetchProviderData = (submissionDate) => {
+const fetchProviderData = (customerId) => {
   return request
-    .get(`${API_ENDPOINT}/customer/1`)
+    .get(`${API_ENDPOINT}/customer/${customerId}`)
     .then((res) => {
       return {
         fullName: `${res.body.firstName} ${res.body.surname}`,
