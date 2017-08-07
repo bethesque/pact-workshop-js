@@ -6,12 +6,11 @@ const API_ENDPOINT = `${API_HOST}:${API_PORT}`
 // Fetch provider data
 const fetchProviderData = () => {
   return request
-    .get(`${API_ENDPOINT}/provider`)
-    .query({ validDate: new Date().toISOString() })
+    .get(`${API_ENDPOINT}/customer/1`)
     .then((res) => {
       return {
-        count: 100 / res.body.count,
-        date: res.body.date
+        fullName: `${res.body.firstName} ${res.body.surname}`,
+        joined: moment(res.body.dateJoined).fromNow()
       }
     })
 }
