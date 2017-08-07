@@ -23,12 +23,12 @@ const provider = pact({
   logLevel: LOG_LEVEL,
   spec: 2
 })
-const date = '2013-08-16T15:31:20+10:00'
+
 const customerId = 1
 const expectedBody = {
   firstName: 'Mary',
   surname: 'Jones',
-  dateJoined: moment().subtract(1, 'day')
+  dateJoined: moment().subtract(1, 'month').format('YYYY-MM-DD')
 }
 
 describe('Pact with Our Provider', () => {
