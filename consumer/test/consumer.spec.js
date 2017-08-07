@@ -20,7 +20,7 @@ describe('Consumer', () => {
         .reply(200, {
           firstName: 'Mary',
           surname: 'Jones',
-          dateJoined: moment().subtract(1, 'month').format('DD-MM-YYYY')
+          dateJoined: moment().subtract(1, 'month').format('YYYY-MM-DD')
         })
 
       const response = fetchProviderData()
