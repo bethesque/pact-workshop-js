@@ -12,14 +12,12 @@ server.use((req, res, next) => {
   next()
 })
 
-server.get('/provider', (req, res) => {
-  const date = req.query.validDate
-
+server.get('/customer/:id', (req, res) => {
   res.json(
     {
-      'test': 'NO',
-      'validDate': new Date().toISOString(),
-      'count': 100
+      'firstName': 'Mary',
+      'lastName': 'Jones',
+      'dateJoined': new Date('2017-01-16')
     }
   )
 })
